@@ -19,7 +19,7 @@ def vygenerovani_cisla() -> int:
     '''
     Funkce s pomocí knihovny random (funkce .randint()) generuje a vrací náhodné čtyrmístné číslo v rozsahu mezi 1000 a 9999 
     ve formátu int.
-    Dále pomocí while cyklu po úpravě čísla na set, za účelem spojení duplicit, zkontroluje délku čísla.
+    Dále pomocí while cyklu po úpravě čísla na set (za účelem spojení duplicit) zkontroluje délku čísla.
     '''
     while True:
         random_cislo = str(random.randint(1000, 9999))
@@ -31,7 +31,7 @@ def zadani_cisla() -> str:
     '''
     Vyzve uživatele k zadání 4 místného čísla. 
 
-    Při zadání nepodporovaného formátu čísla (začínající 0, nečtyřmístné nebo nečíselné) upozorní na tuto chybu 
+    Při zadání nepodporovaného formátu čísla (začínající 0, nečtyřmístné, nečíselné nebo duplictiní) upozorní na tuto chybu 
     a vyzve znovu uživatele k zadání.
 
     Při správném zadání, funkce zobrazí vložené 4 místné číslo jako str.
