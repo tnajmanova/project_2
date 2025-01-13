@@ -1,5 +1,5 @@
 """
-projekt_2.py: Bulls and Cows -> druhý projekt do Engeto Online Python Akademie
+projekt_2.py: Bulls and Cows -> druhý projekt do Engeto Online Python Akademie -> VERZE 2
 
 author: Tereza Najmanová
 email: najmanova.tereza@gmail.com
@@ -19,9 +19,13 @@ def vygenerovani_cisla() -> int:
     '''
     Funkce s pomocí knihovny random (funkce .randint()) generuje a vrací náhodné čtyrmístné číslo v rozsahu mezi 1000 a 9999 
     ve formátu int.
+    Dále pomocí while cyklu po úpravě čísla na set, za účelem spojení duplicit, zkontroluje délku čísla.
     '''
-    random_cislo = random.randint(1000, 9999)
-    return random_cislo
+    while True:
+        random_cislo = str(random.randint(1000, 9999))
+
+        if len(set(random_cislo)) == len(random_cislo):
+            return random_cislo
 
 def zadani_cisla() -> str:
     '''
@@ -33,22 +37,24 @@ def zadani_cisla() -> str:
     Při správném zadání, funkce zobrazí vložené 4 místné číslo jako str.
     '''
     print(ODDELOVAC)
-    zadane_cislo = input('Enter a number: ')
+    prepinac = True
 
-    if len(zadane_cislo) != 4:
-        print('Please enter number with 4 digits!')
-    
-    elif zadane_cislo[0] == '0':
-        print('Number must not begin with 0!')
+    while prepinac:
+        zadane_cislo = input('Enter a number: ')
 
-    elif not zadane_cislo.isdigit():
-        print('Please enter only numbers!')
-
-    else:
-        print(ODDELOVAC, f'>>> {zadane_cislo}', sep='\n')
-
-    return zadane_cislo
-
+        if len(zadane_cislo) != 4:
+            print('Please enter number with 4 digits!')
+        elif zadane_cislo[0] == '0':
+            print('Number must not begin with 0!')
+        elif not zadane_cislo.isdigit():
+            print('Please enter only numbers!')
+        elif len(set(zadane_cislo)) != len(zadane_cislo):
+            print('Number must not contain same numbers')
+        else:
+            print(ODDELOVAC, f'>>> {zadane_cislo}', sep='\n')
+            prepinac = False
+            return zadane_cislo
+            
 def vyhodnoceni_cisla(zadane_cislo: str, random_cislo: str) -> int:
     '''
     Funkce vyhodnotí uživatelem zadané čtyřmístné číslo a náhodně vygenerované číslo pomocí hry 'cows and bulls'.
@@ -71,7 +77,6 @@ def vyhodnoceni_cisla(zadane_cislo: str, random_cislo: str) -> int:
             bulls += 1
     
     cows -= bulls
-
     return cows, bulls
    
 def spust_hru() -> str:
@@ -83,7 +88,7 @@ def spust_hru() -> str:
     proces do té doby, než se čísla shodují. Poté pogratuluje uživateli, zobrazí počet pokusů a ukončí hru.
     '''
     pozdrav_uzivatele()
-    random_cislo, zadane_cislo = str(vygenerovani_cisla()), zadani_cisla()
+    random_cislo, zadane_cislo = vygenerovani_cisla(), zadani_cisla()
     hra_bezi = True
     pokusy = 1
 
@@ -100,7 +105,6 @@ def spust_hru() -> str:
             print(f'{bulls} {strbull}, {cows} {strcow}')
             zadane_cislo = zadani_cisla()
             pokusy += 1
-            
     else:
         print('That\'s amazing!')   
 
